@@ -1,5 +1,6 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import { ClerkProvider } from "@clerk/nextjs"
 import { appConfig } from "@/config/app"
 import { geist, geistMono } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
@@ -50,16 +51,18 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={cn("h-full", geist.className, geist.variable, geistMono.variable)} suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Toaster position="bottom-center" />
-          <ModalProvider />
-          {children}
-          <Analytics />
-          <SpeedInsights />
-        </ThemeProvider>
-      </body>
-    </html>
+		<ClerkProvider>
+			<html lang="en" className={cn("h-full", geist.className, geist.variable, geistMono.variable)} suppressHydrationWarning>
+				<body>
+					<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+						<Toaster position="bottom-center" />
+						<ModalProvider />
+						{children}
+						<Analytics />
+						<SpeedInsights />
+					</ThemeProvider>
+				</body>
+			</html>
+		</ClerkProvider>
   )
 }
